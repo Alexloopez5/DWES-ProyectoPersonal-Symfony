@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<body>
+    
+    {% if producto %}
+    <h2>Ficha del producto</h2>
+    <ul>
+        <li><strong>{{ producto.nombre}}</strong></li>
+        <li><strong>color: </strong>{{ producto.color}}</li>
+        <li><strong>Precio: </strong>{{ producto.precio}}</li>
+    </ul>
+    {% else %}
+        <p>Producto no encontrado</p>
+    {% endif %}
+</body>
+</html>

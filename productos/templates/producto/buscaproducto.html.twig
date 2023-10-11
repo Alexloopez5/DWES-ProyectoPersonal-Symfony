@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<body>  
+    <h2>Ficha del producto</h2>
+    {% if productos %}
+        {% for producto in productos %}
+            <ul>
+                <li><strong>{{ producto.nombre}}</strong></li>
+                <li><strong>Color: </strong>{{ producto.color}}</li>
+                <li><strong>Precio: </strong>{{ producto.precio}}€</li>                
+            </ul>
+        {% endfor %}
+        <p>El precio total de los {{ cantidadProductos }} productos de color {{ texto }} es: {{ precioTotal }}€</p>
+    {% else %}
+        <p>No tenemos ningun producto con el color {{ texto }}</p>
+    {% endif %}
+</body>
+</html>
