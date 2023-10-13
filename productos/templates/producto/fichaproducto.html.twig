@@ -1,17 +1,10 @@
-<!doctype html>
-<html>
-<meta charset="utf-8">
-<body>
-    
+{% extends "base.html.twig" %}
+{% block title %}Productos{% endblock %}
+{% block body %}
+    <h1>Ficha del producto</h1>
     {% if producto %}
-    <h2>Ficha del producto</h2>
-    <ul>
-        <li><strong>{{ producto.nombre}}</strong></li>
-        <li><strong>color: </strong>{{ producto.color}}</li>
-        <li><strong>Precio: </strong>{{ producto.precio}}</li>
-    </ul>
+        {{ include ("partials/datos_producto.html.twig", {'producto': producto}) }}
     {% else %}
-        <p>Producto no encontrado</p>
+    <h4>Producto no encontrado</h4>
     {% endif %}
-</body>
-</html>
+{% endblock %}

@@ -1,19 +1,13 @@
-<!doctype html>
-<html>
-<meta charset="utf-8">
-<body>  
-    <h2>Ficha del producto</h2>
+{% extends "base.html.twig" %}
+{% block title %}Productos{% endblock %}
+{% block body %}
+    <h1>Ficha del producto</h1>
     {% if productos %}
         {% for producto in productos %}
-            <ul>
-                <li><strong>{{ producto.nombre}}</strong></li>
-                <li><strong>Color: </strong>{{ producto.color}}</li>
-                <li><strong>Precio: </strong>{{ producto.precio}}€</li>                
-            </ul>
+            {{ include ("partials/datos_producto.html.twig", {'producto': producto}) }}
         {% endfor %}
-        <p>El precio total de los {{ cantidadProductos }} productos de color {{ texto }} es: {{ precioTotal }}€</p>
+        <p>El precio total de los productos es de: {{ precioTotal }}
     {% else %}
-        <p>No tenemos ningun producto con el color {{ texto }}</p>
+        <p>No se han encontrado productos {{texto}}</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}
