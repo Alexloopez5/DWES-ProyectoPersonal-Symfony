@@ -153,7 +153,7 @@ class ProductoController extends AbstractController
             $totalProductos++;
         }
         return $this->render('/producto/buscaproducto.html.twig', [
-            'productos' => $productos, 'texto' => $texto, 'precioTotal' => $precioTotal
+            'productos' => $productos, 'texto' => $texto, 'precioTotal' => $precioTotal, 'totalproductos' => $totalProductos
         ]);
     }
 }
