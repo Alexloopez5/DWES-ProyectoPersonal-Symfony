@@ -1,7 +1,7 @@
 <ul>
     <li><strong>{{ producto.nombre}}</strong></li>
     <li><strong>Color: </strong>{{ producto.color}}</li>
-    {% if producto.proveedor %}
+    {% if producto.proveedor.id > 0 %}
         <li><strong>Proveedor: </strong>{{ producto.proveedor.nombre}}</li>
     {% endif %}
     

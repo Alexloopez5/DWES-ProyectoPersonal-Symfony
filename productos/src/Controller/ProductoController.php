@@ -87,7 +87,7 @@ class ProductoController extends AbstractController
     }
 
 
-    #[Route('/producto/{idproducto}', name: 'app_producto')]
+    #[Route('/producto/{idproducto}', name: 'app_producto_por_id')]
     public function ficha(ManagerRegistry $doctrine, $idproducto): Response{
         $repositorio = $doctrine->getRepository(Producto::class);
         $producto = $repositorio->find($idproducto);
