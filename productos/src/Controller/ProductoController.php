@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Producto;
+use App\Entity\Proveedor;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,6 +43,49 @@ class ProductoController extends AbstractController
     {
         return $this->render('producto/index.html.twig');
     }
+
+    #[Route('/producto/insertarConProveedor', name: 'insertar_con_proveedor')]
+    public function insertarConProveedor(ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $proveedor = new Proveedor();
+
+        $proveedor->setNombre("Amazon");
+        $producto = new Producto();
+
+        $producto->setNombre("Inserción de prueba con proveedor");
+        $producto->setColor("blanco");
+        $producto->setPrecio("20");
+        $producto->setProveedor($proveedor);
+
+        $entityManager->persist($proveedor);
+        $entityManager->persist($producto);
+
+        $entityManager->flush();
+        return $this->render("producto/fichaproducto.html.twig", [
+            "producto" => $producto
+        ]);
+    }
+
+    #[Route('/producto/insertarSinProveedor', name: 'insertar_sin_proveedor')]
+    public function insertarSinProveedor(ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repositorio = $doctrine->getRepository(Proveedor::class);
+        $proveedor = $repositorio->findOneBy(["nombre" => "Amazon"]);
+        $producto = new Producto();
+
+        $producto->setNombre("Inserción de prueba sin proveedor");
+        $producto->setColor("blanco");
+        $producto->setPrecio("20");
+        $producto->setProveedor($proveedor);
+
+        $entityManager->persist($producto);
+
+        $entityManager->flush();
+        return $this->render("producto/fichaproducto.html.twig", [
+            "producto" => $producto
+        ]);
+    }
+
 
     #[Route('/producto/{idproducto}', name: 'app_producto')]
     public function ficha(ManagerRegistry $doctrine, $idproducto): Response{

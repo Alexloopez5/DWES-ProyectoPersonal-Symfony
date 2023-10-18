@@ -1,5 +1,9 @@
 <ul>
     <li><strong>{{ producto.nombre}}</strong></li>
     <li><strong>Color: </strong>{{ producto.color}}</li>
+    {% if producto.proveedor %}
+        <li><strong>Proveedor: </strong>{{ producto.proveedor.nombre}}</li>
+    {% endif %}
+    
     <li><strong>Precio: </strong>{{ producto.precio}}€</li>                
 </ul>
