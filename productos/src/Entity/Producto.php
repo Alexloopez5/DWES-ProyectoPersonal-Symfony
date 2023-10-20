@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductoRepository::class)]
 class Producto
@@ -14,12 +15,15 @@ class Producto
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"El nombre es obligatorio")]
     private ?string $Nombre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"El color es obligatorio")]
     private ?string $Color = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"El precio es obligatorio")]
     private ?float $Precio = null;
 
     #[ORM\ManyToOne]

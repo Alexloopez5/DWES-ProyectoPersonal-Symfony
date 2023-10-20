@@ -1,0 +1,10 @@
+body {
+    background-color:rgb(200, 20, 255);
+    color: white;
+}
+h1{
+    border-bottom: 1px solid black;
+}
+form{
+    padding: 10px;
+}

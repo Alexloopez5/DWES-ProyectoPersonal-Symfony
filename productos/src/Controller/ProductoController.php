@@ -4,8 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Producto;
 use App\Entity\Proveedor;
+use App\Form\ProductoType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,6 +43,52 @@ class ProductoController extends AbstractController
             return new Response("Error insertando objetos " . $e->getMessage());
         }
     }
+
+
+    #[Route('/producto/nuevo', name: 'nuevo_producto')]
+    public function nuevo(ManagerRegistry $doctrine, Request $request) {
+        $producto = new Producto();
+
+        $formulario = $this->createForm(ProductoType::class, $producto);
+        $formulario->handleRequest($request);
+
+        if($formulario->isSubmitted() && $formulario->isValid()){
+            $producto = $formulario->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($producto);
+            $entityManager->flush();
+            return $this->render("producto/fichaproducto.html.twig", ["producto"=>$producto ,"codigo" => $producto->getId()]);
+        }
+    
+        return $this->render('producto/nuevo.html.twig', array(
+            'formulario' => $formulario->createView()
+        ));
+    }
+
+    #[Route('/producto/editar/{codigo}', name: 'editar_producto')]
+    public function editar(ManagerRegistry $doctrine, Request $request, $codigo) {
+        $repositorio = $doctrine->getRepository(Producto::class);
+        $producto = $repositorio->find($codigo);
+        
+        if($producto){
+            $formulario = $this->createForm(ProductoType::class, $producto);
+            $formulario->handleRequest($request);
+
+            if($formulario->isSubmitted() && $formulario->isValid()){
+                $producto = $formulario->getData();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($producto);
+                $entityManager->flush(); 
+            }
+        
+            return $this->render('producto/nuevo.html.twig', array(
+                'formulario' => $formulario->createView()
+            ));
+        }else{
+            return $this->redirectToRoute("nuevo_producto");
+        }
+    }
+
 
     #[Route('/producto', name: 'app_producto')]
     public function index(): Response
@@ -128,7 +180,7 @@ class ProductoController extends AbstractController
             try{
                 $entityManager->remove($producto);
                 $entityManager->flush();
-                return new Response("Contacto eliminado");
+                return new Response("pro$producto eliminado");
             }catch(\Exception $e){
                 return new Response("Error eliminando objeto " . $e->getMessage());
             }
