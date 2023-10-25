@@ -13,7 +13,7 @@
         {% for producto in productos %}
             {{ include ("partials/datos_producto.html.twig", {'producto': producto}) }}
         {% endfor %}
-        <p>El precio total de los {{ totalproductos }} productos es de: {{ precioTotal }}
+        
     {% else %}
         <p>No se han encontrado productos {{texto}}</p>
     {% endif %}

@@ -91,9 +91,19 @@ class ProductoController extends AbstractController
 
 
     #[Route('/producto', name: 'app_producto')]
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        return $this->render('producto/index.html.twig');
+        $repositorio = $doctrine->getRepository(Producto::class);
+        $productos = $repositorio->findAll();   
+        $precioTotal = 0;
+        $totalProductos = 0; 
+        foreach($productos  as $cod=>$producto){
+            $precioTotal += $producto->getPrecio();
+            $totalProductos++;
+        }
+        return $this->render("producto/buscaproducto.html.twig", [
+            'productos' => $productos, 'totalproductos' => $productos
+        ]);
     }
 
     #[Route('/producto/insertarConProveedor', name: 'insertar_con_proveedor')]
