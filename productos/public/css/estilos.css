@@ -8,3 +8,12 @@ h1{
 form{
     padding: 10px;
 }
+a{
+    color: black;
+}
+hr{
+    color: black;
+}
+#bt{
+    background-color: bisque;
+}

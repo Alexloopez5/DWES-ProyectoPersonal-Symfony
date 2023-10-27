@@ -6,15 +6,13 @@
     {% else %}
         <h1>Ficha del producto</h1>
     {% endif %}
-        
-    
-    
+
     {% if productos %}
         {% for producto in productos %}
             {{ include ("partials/datos_producto.html.twig", {'producto': producto}) }}
         {% endfor %}
-        
     {% else %}
         <p>No se han encontrado productos {{texto}}</p>
     {% endif %}
+    <a href="{{ path('app_page') }}">Pagina principal</a>
 {% endblock %}

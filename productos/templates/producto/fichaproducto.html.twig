@@ -4,7 +4,10 @@
     <h1>Ficha del producto</h1>
     {% if producto %}
         {{ include ("partials/datos_producto.html.twig", {'producto': producto}) }}
+        <a id="bt" href="{{ path('editar_producto', {'codigo': producto.id}) }}" class="btn">Editar</a>
+        <a id="bt" href="{{ path('borrar_producto', {'id': producto.id}) }}" class="btn">Borrar</a>
     {% else %}
     <h4>Producto no encontrado</h4>
     {% endif %}
+    <a id="bt" href="{{ path('app_producto') }}" class="btn">Ver Productos</a>
 {% endblock %}

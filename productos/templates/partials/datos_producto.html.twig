@@ -1,9 +1,12 @@
 <ul>
-    <li><strong>{{ producto.nombre}}</strong></li>
+    <li><strong><a href="{{ path('app_producto_por_id', {'producto':producto,'idproducto': producto.id}) }}">{{ producto.nombre}}<a/></strong></li>
     <li><strong>Color: </strong>{{ producto.color}}</li>
     {% if producto.proveedor.id > 0 %}
         <li><strong>Proveedor: </strong>{{ producto.proveedor.nombre}}</li>
     {% endif %}
-    
     <li><strong>Precio: </strong>{{ producto.precio}}€</li>                
+    {% if producto.file %}
+        <img src="{{ asset('images/index/gallery/' ~ producto.file) }}"/>
+    {% endif %}
+    <hr>
 </ul>
